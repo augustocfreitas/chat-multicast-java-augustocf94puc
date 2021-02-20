@@ -32,6 +32,8 @@ public class AreaDoUsuarioController {
 
     @FXML
     private Button btn_CriarSala;
+
+	private String nome;
     
   
     
@@ -44,19 +46,17 @@ public class AreaDoUsuarioController {
     	if (!textField_NomeCriarSala.getText().isEmpty()){
     		Sala novaSala = new Sala(nomeDaSala,socket);
     		Main.listaDeSala.add(novaSala);
-    		System.out.println("Nome da Sala: "+nomeDaSala+ "Socket"+socket);
+    		//System.out.println("Nome da Sala: "+nomeDaSala+ " Socket: "+socket);
     		showMessageDialog(null,"Sala Criada com sucesso!");
-    		carregarList(event);
-    		System.out.println("2");
+    		carregarList();
     	}
     	else
     		showMessageDialog(null,"Escolha o nome da sala!");
-    		System.out.println("1");
     	
     }
     
     @FXML
-    void carregarList (ActionEvent event) throws IOException {
+    void carregarList () throws IOException {
     	listView_SalaDisponiveis.getItems().clear();
     	for (int i=0; i<Main.listaDeSala.size(); i++) {
     		listView_SalaDisponiveis.getItems().add(Main.listaDeSala.get(i).getNomeDaSala());
@@ -71,8 +71,49 @@ public class AreaDoUsuarioController {
     	Scene tableViewScene1 = new Scene(tableViewParent1,960,540);
     	Stage window = (Stage) btn_Sair.getScene().getWindow();
     	window.setScene(tableViewScene1);
+    	window.setTitle("Chat Multicast");
     	window.show();
 
+    }
+    
+    @FXML
+    void entrarNaSala (ActionEvent event) throws IOException {
+    	
+    	if (!listView_SalaDisponiveis.getSelectionModel().isEmpty()){
+    	
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("TelaChat.fxml"));
+    	Parent tableViewParent2 = loader.load();
+    	Scene tableViewScene2 = new Scene(tableViewParent2,960,540);
+    	
+    	
+    	TelaChatController controller = loader.getController();
+    	controller.getNomeDoChat(listView_SalaDisponiveis.getSelectionModel().getSelectedItem());
+    	
+
+    	int posSelicionada = listView_SalaDisponiveis.getSelectionModel().getSelectedIndex();
+    	controller.getDatagramSocket(posSelicionada);
+    	controller.getNomeDoUsuario(nome);
+    	
+    	
+    	Stage window = (Stage) btn_CriarSala.getScene().getWindow();
+    	window.setScene(tableViewScene2);
+    	window.setTitle("Chat Multicast");
+    	window.show();
+    	}
+    	else
+    		showMessageDialog(null,"Selecione uma sala!");
+    	
+    }
+    
+	public void getNomeDoUsuario(String nome) {
+		this.nome = nome;
+		
+	}
+    
+    @FXML
+    public void initialize() throws IOException {
+    	carregarList();
     }
 
 }

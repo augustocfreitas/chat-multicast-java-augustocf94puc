@@ -30,9 +30,16 @@ public class ChatMulticastMainController {
 	    		Main.listaDeCliente.add(novoClient);
 
 	    		// Load Tela de Usuario
-		    	Parent tableViewParent = FXMLLoader.load(getClass().getResource("AreaDoUsuario.fxml"));
+	        	FXMLLoader loader = new FXMLLoader();
+	        	loader.setLocation(getClass().getResource("AreaDoUsuario.fxml"));
+	        	Parent tableViewParent = loader.load();
 		    	Scene tableViewScene = new Scene(tableViewParent,960,540);
+		    	
+		    	AreaDoUsuarioController controller = loader.getController();
+		    	controller.getNomeDoUsuario(nome);
+		    	
 		    	Stage window = (Stage) btn_Confirmar.getScene().getWindow();
+		    	window.setTitle("Chat Multicast");
 		    	window.setScene(tableViewScene);
 		    	window.show();
 	    	}

@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TelaChatController">
-	<!-- TODO Add Nodes -->
+<AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TelaChatController">
+   <children>
+      <AnchorPane prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #03045e;">
+         <children>
+            <ListView fx:id="tableView_MsgRecebidas" layoutX="98.0" layoutY="63.0" prefHeight="325.0" prefWidth="750.0" />
+            <Label fx:id="labelTitleChat" layoutX="98.0" layoutY="21.0" prefHeight="32.0" prefWidth="604.0" text="Bem vindo ao Chat - " textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="98.0" layoutY="405.0" prefHeight="32.0" prefWidth="119.0" text="Mensagem:" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textField_MensagemEnviar" layoutX="208.0" layoutY="409.0" prefHeight="32.0" prefWidth="642.0" />
+         </children></AnchorPane>
+      <Button fx:id="btn_EnviarMsg" layoutX="143.0" layoutY="474.0" mnemonicParsing="false" onAction="#mandarMsg" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #0069D9;" text="Enviar" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_SairDaSala" layoutX="703.0" layoutY="474.0" mnemonicParsing="false" onAction="#sairDoChat" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #C82333;" text="Sair" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>
-
