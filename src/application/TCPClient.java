@@ -4,7 +4,7 @@ import java.net.*;
 import java.io.*;
 
 public class TCPClient {
-	public static String conectarClient(String msg,String host, int porta) {
+	public static void conectarClient(String msg,String host, int porta) {
 		// arguments supply message and hostname
 		Socket s = null;
 		String data = null;
@@ -31,6 +31,5 @@ public class TCPClient {
 				}
 		}
 
-		return data;
 	}
 }

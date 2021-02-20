@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+
 public class TCPServer {
 	public static void main(String args[]) {
 
@@ -60,6 +63,9 @@ class Connection extends Thread {
 			data = in.readUTF(); // le a linha da entrada
 			System.out.println("Recebido: " + data);
 			out.writeUTF(data);
+			//Sending to Observable list
+			TelaChatController.getMsgRecebidas(data);
+			
 			}while(data == "!sairServidor");
 		} catch (EOFException e) {
 			System.out.println("EOF:" + e.getMessage());
@@ -73,6 +79,7 @@ class Connection extends Thread {
 				/* close falhou */
 			}
 		}
-
+		
 	}
+	
 }

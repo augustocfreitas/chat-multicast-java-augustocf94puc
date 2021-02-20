@@ -2,6 +2,11 @@ package application;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +20,9 @@ import javafx.stage.Stage;
 
 public class TelaChatController {
 	
-	int socket;
-	String nome;
+	private int socket;
+	private String nome;
+	private static String msg;
 
     @FXML
     private Label labelTitleChat;
@@ -31,7 +37,13 @@ public class TelaChatController {
     private Button btn_SairDaSala;
     
     @FXML
-    private ListView<String> tableView_MsgRecebidas;
+    private static ListView<String> tableView_MsgRecebidas;
+    
+    
+    private static ObservableList<String> msgRecebidasObs = FXCollections.observableArrayList("Bem Vindo ao Chat!");
+    
+    private static List<String> msgOutRecebidas = new ArrayList<String>();
+    
 	
 	public void getNomeDoChat (String nome) {
 		
@@ -49,10 +61,11 @@ public class TelaChatController {
 		
 		
 		 String msg = nome+" : "+ textField_MensagemEnviar.getText(); 
-		 String resposta = TCPClient.conectarClient(msg,"localhost", 7896);
+		 //TCPClient.conectarClient(msg,"localhost", 7896);
 		 //System.out.println("Resp: "+resposta);
-		 tableView_MsgRecebidas.getItems().add(resposta);
-
+		 //tableView_MsgRecebidas.getItems().add(resposta);
+		 MulticastPeer.conectarMulticastPeer(msg, "228.5.6.7");
+		 //tableView_MsgRecebidas.getItems().add(msg);
 		 
 		
 	}	
@@ -74,10 +87,28 @@ public class TelaChatController {
 		
 	}
 	
+	
+	public static void getMsgRecebidas (String mensagem) 
+	{
+    	System.out.println("Recebi aqui! " + mensagem );
+    	TelaChatController.msg = mensagem;
+    	
+    	//tableView_MsgRecebidas.getItems().add(mensagem);
+		//TelaChatController.msgOutRecebidas.add(mensagem);
+		//msgRecebidasObs.addAll(msgOutRecebidas);
+		//adicionarNaTable();
+	}
+	
+	
+	public static void adicionarNaTable() {
+		tableView_MsgRecebidas.getItems().addAll(msgOutRecebidas);
+	}
+	
 	 @FXML
 	 public void initialize() throws IOException {
 		 
-		 
+
+	    	
 	 }
 	
 	
